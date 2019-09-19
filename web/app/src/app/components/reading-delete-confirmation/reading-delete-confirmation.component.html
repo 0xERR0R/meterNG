@@ -1,0 +1,21 @@
+<div class="alert-box">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ 'readingsDeleteConfirmationComponent.title' | translate }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <pre><code>{{reading.meterId}}
+{{reading.date | date}}
+{{reading.value | number:'1.2-2'}}
+</code></pre>
+        {{ 'readingsDeleteConfirmationComponent.text' | translate }}</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger"
+                (click)="onConfirm()">{{ 'readingsDeleteConfirmationComponent.yes' | translate }}</button>
+        <button type="button" class="btn btn-secondary"
+                (click)="onCancel()">{{ 'readingsDeleteConfirmationComponent.no' | translate }}</button>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div *ngIf="meter">
+    <div class="dropright mb-1">
+        <a class="btn btn-secondary  btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+           data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            {{'chartComponent.type' | translate}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#" *ngFor="let chartType of getPossibleChartTypes()"
+               [routerLink]="['/chart', meter.name, chartType]"
+               routerLinkActive="active">{{'chartType.' + chartType | translate}}</a>
+        </div>
+    </div>
+    <div>
+        <div *ngIf="chartData?.length == 0">
+            <p>no data</p>
+        </div>
+        <!-- 60 px header, 35 px button -->
+        <div class="chart" *ngIf="chartData?.length > 0" style="position: relative; height: calc(100vh - 60px - 35px)">
+            <canvas baseChart
+                    [datasets]="chartData"
+                    [labels]="chartLabels"
+                    [options]="chartOptions"
+                    [colors]="chartColors"
+                    [chartType]="chartType">
+            </canvas>
+        </div>
+    </div>
+</div>

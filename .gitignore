@@ -1,0 +1,7 @@
+.idea
+*.db
+*.iml
+dist/
+web/app/dist/
+web/app/node_modules
+rice-box.go

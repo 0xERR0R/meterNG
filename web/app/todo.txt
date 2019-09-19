@@ -1,0 +1,4 @@
+loading bar oben
+routers eigenes file
+configuration
+csv von console?

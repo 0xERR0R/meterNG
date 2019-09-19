@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "charts": "Charts",
+    "record": "Record",
+    "readings": "Readings",
+    "admin": "Admin"
+  },
+  "chartType": {
+    "total": "Meter total",
+    "monthAll": "Consumption per month",
+    "month": "Annual consumption per month",
+    "year": "Consumption per year"
+  },
+  "chartComponent": {
+    "type": "Chart type"
+  },
+  "readingsComponent" : {
+    "meter": "Meter",
+    "date": "Date",
+    "value": "Value",
+    "dateFromUntil": "Date from/until",
+    "readingDeleted.title": "Reading deleted",
+    "readingDeleted.text": "Reading was successfully deleted"
+  },
+  "readingsDeleteConfirmationComponent" : {
+    "yes": "Yes",
+    "no": "No",
+    "title": "Confirmation",
+    "text": "Are you sure want to delete this reading?"
+  },
+  "newRecordComponent" : {
+    "readingStored.title": "Readings stored",
+    "readingStored.text": "Readings stored successfully",
+    "saveReadings": "Save"
+  },
+  "adminComponent" : {
+    "import": "Import",
+    "export": "Export",
+    "export.cardTitle": "Export readings",
+    "export.cardText": "Export all readings as CSV file",
+    "import.cardTitle": "Import readings",
+    "import.cardText": "Import readings from CSV file",
+    "import.chooseFile": "Choose file to upload",
+    "readingsImported.title": "Readings imported",
+    "readingsImported.text": " {{ count }} Readings was/were successfully imported"
+  },
+  "readingDate": "Reading date",
+  "month": "Month",
+  "year": "Year",
+  "monthYear": "Month / Year",
+  "valuePlaceholder": "Meter reading"
+
+
+
+}
