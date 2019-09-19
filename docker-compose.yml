@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   meter-go:
-    image: spx01/meterng:amd64
+    image: spx01/meterng
     environment:
       - METER_DB.URL=host=db port=5432 user=meter dbname=meter password=meter sslmode=disable
       - METER_DB.DIALECT=postgres
