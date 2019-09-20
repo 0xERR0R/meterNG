@@ -19,14 +19,12 @@ WORKDIR /src
 # frontend
 RUN cd web/app && \
     npm update && \
-    ng build --source-map=false --build-optimizer=false --prod
+    ng build --prod
 # embed frontend
 RUN rice embed-go
 
 ARG opts
 RUN env ${opts} go build -ldflags="-w -s" -o dist/meterNG
-WORKDIR /usr/share/zoneinfo
-RUN zip -r -0 /zoneinfo.zip .
 
 # final stage
 FROM scratch
