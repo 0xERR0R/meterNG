@@ -12,5 +12,5 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: |
-        make test
+        make testBackend
         make buildDockerImages
