@@ -10,8 +10,8 @@ jobs:
  
     steps:
     - name: Sign-in to Docker
-       uses: actions/docker/login@master
-       env:
+      uses: actions/docker/login@master
+      env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}    
     - uses: actions/checkout@v1
