@@ -46,7 +46,6 @@ type Config struct {
 }
 
 func New() (Config, error) {
-	config := Config{}
 	config, err := initViper()
 	if err == nil {
 		printConfiguration()
