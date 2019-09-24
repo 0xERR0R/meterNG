@@ -95,7 +95,7 @@ func TestSingleMonthWithDateFromOtherMonthsResult(t *testing.T) {
 	assert.Equal(t, 1, result[1].Month)
 	assert.Equal(t, 2016, result[1].Year)
 	val, _ := result[1].Value.Float64()
-	assert.InDelta(t, float64(192.58), val, 0.05)
+	assert.InDelta(t, 192.58, val, 0.5)
 }
 
 func TestAggregateYearResult(t *testing.T) {
@@ -129,5 +129,5 @@ func TestAggregateYearResult(t *testing.T) {
 	assert.Len(t, result, 1)
 	assert.Equal(t, 2016, result[0].Year)
 	val, _ := result[0].Value.Float64()
-	assert.InDelta(t, float64(1327.33), val, 0.05)
+	assert.InDelta(t, 1327.33, val, 0.5)
 }
