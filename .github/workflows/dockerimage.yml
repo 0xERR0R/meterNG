@@ -9,9 +9,11 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-    - name: Docker login
-    - uses: uses = "actions/docker/login@master"
-      secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+    - name: Sign-in to Docker
+       uses: actions/docker/login@master
+       env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}    
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: |
