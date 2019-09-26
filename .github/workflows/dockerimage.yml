@@ -17,10 +17,9 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: |
+        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
         make testBackend
         make buildDockerImages
-    - name: push
-    - uses:  actions/docker/cli@master
-      args: "docker push spx01/meterng:arm32v6"
+        make dockerManifestAndPush
         
         
