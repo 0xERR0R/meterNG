@@ -19,6 +19,8 @@ jobs:
       run: |
         make testBackend
         make buildDockerImages
-        make dockerManifestAndPush
+    - name: push
+    - uses:  actions/docker/cli@master
+      args: "docker push spx01/meterng:arm32v6"
         
         
