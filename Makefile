@@ -22,7 +22,6 @@ buildDockerImages: ## Build docker images
 	docker build --build-arg opts="GOARCH=amd64" --pull --tag ${DOCKER_IMAGE_NAME}:amd64 .
 
 dockerManifestAndPush: ## create manifest for multi arch image and push to docker hub
-	mkdir -p ~/.docker && echo "{\"experimental\": \"enabled\"}" > ~/.docker/config.json
 	docker push ${DOCKER_IMAGE_NAME}:arm32v6
 	docker push ${DOCKER_IMAGE_NAME}:amd64
 	docker manifest create ${DOCKER_IMAGE_NAME} ${DOCKER_IMAGE_NAME}:amd64 ${DOCKER_IMAGE_NAME}:arm32v6
