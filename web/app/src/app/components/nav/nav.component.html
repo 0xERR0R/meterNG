@@ -7,13 +7,8 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown" data-toggle="collapse" data-target=".navbar-collapse.show">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">
-                    <fa-icon icon="chart-line"></fa-icon> {{ 'nav.charts' | translate }}</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" *ngFor="let meter of meters" [routerLink]="['/chart', meter.name]">{{meter.name}}</a>
-                </div>
+            <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
+                <a class="nav-link" [routerLink]="['/chart']" routerLinkActive="active"><fa-icon icon="chart-line"></fa-icon> {{ 'nav.charts' | translate }}</a>
             </li>
             <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                 <a class="nav-link" [routerLink]="['/readings']" routerLinkActive="active"><fa-icon icon="table"></fa-icon> {{ 'nav.readings' | translate }}</a>
@@ -22,7 +17,6 @@
                 <a class="nav-link" [routerLink]="['/record']" routerLinkActive="active"><fa-icon icon="pencil-alt"></fa-icon> {{ 'nav.record' | translate }}</a>
             </li>
         </ul>
-
         <ul class="navbar-nav">
             <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                 <a class="nav-link" [routerLink]="['/admin']" routerLinkActive="active"><fa-icon icon="wrench"></fa-icon> {{ 'nav.admin' | translate }}</a>

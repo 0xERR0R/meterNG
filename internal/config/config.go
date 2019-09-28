@@ -69,7 +69,7 @@ func initViper() (Config, error) {
 	viper.SetDefault("db.dialect", "mysql")
 	viper.SetDefault("db.url", "default")
 	viper.SetDefault("task.backup.cron", "0 0 7 * * *")
-	viper.SetDefault("task.notification.cron", "0 * * * * *")
+	viper.SetDefault("task.notification.cron", "0 0 * * * *")
 	viper.SetDefault("task.notification.days", "7")
 	viper.SetDefault("task.notification.url", "http://enter_valid_url:8080/record")
 	viper.SetDefault("task.notification.meter_names", "")

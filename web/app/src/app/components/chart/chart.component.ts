@@ -19,6 +19,8 @@ import {DeviceDetectorService} from "ngx-device-detector";
 })
 export class ChartComponent implements OnInit {
     meter: Meter;
+    chartTypeParam: ChartType
+    allMeters: Meter[];
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -35,11 +37,12 @@ export class ChartComponent implements OnInit {
 
     ngOnInit() {
         this.meterService.getMeters().subscribe(meters => {
+            this.allMeters = meters;
             // resolve meter name and chart type
             this.route.params.subscribe(p => {
                 const meterId: string = p && p.meterId;
-                const chartTypeParam: ChartType = p && p.chartType;
-                let meterChartType = (ChartType as any)[chartTypeParam];
+                this.chartTypeParam = p && p.chartType;
+                let meterChartType = (ChartType as any)[this.chartTypeParam];
                 if (meterId != null) {
                     this.meter = meters.find(m => m.name === meterId);
                 }
@@ -60,7 +63,12 @@ export class ChartComponent implements OnInit {
 
     getPossibleChartTypes(): Array<String> {
         const keys = Object.keys(ChartType);
-        return keys.slice(keys.length / 2);
+        return keys.slice(keys.length / 2)
+            .filter(s => s !== this.chartTypeParam.toString());
+    }
+
+    getPossibleMeters(): Array<Meter> {
+        return this.allMeters.filter(s => s !== this.meter);
     }
 
     loadChartData(meterChartType: ChartType) {
