@@ -63,7 +63,7 @@ func initViper() (Config, error) {
 	viper.SetDefault("email.recipient", "")
 	viper.SetDefault("email.smtp_host", "")
 	viper.SetDefault("email.sender", "")
-	viper.SetDefault("email.smtp_port", "")
+	viper.SetDefault("email.smtp_port", "0")
 	viper.SetDefault("email.smtp_user", "")
 	viper.SetDefault("email.smtp_password", "")
 	viper.SetDefault("db.dialect", "mysql")

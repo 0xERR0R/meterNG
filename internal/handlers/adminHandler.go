@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	"log"
+	"meter-go/internal/config"
 	"meter-go/internal/model"
 	"meter-go/internal/storage"
 	"net/http"
@@ -79,4 +80,9 @@ func (h *AdminHandler) ImportCsv(w http.ResponseWriter, r *http.Request) {
 	in := fmt.Sprintf("%d", len(result))
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte(in))
+}
+
+func (h *AdminHandler) GetBuildInfo(w http.ResponseWriter, r *http.Request) {
+	log.Printf("git %s", config.GitRevision)
+	w.Write([]byte(config.GitRevision + " / " + config.BuildTime))
 }

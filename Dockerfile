@@ -16,15 +16,9 @@ ENV GO111MODULE=on \
     CGO_ENABLED=0
 ADD . /src
 WORKDIR /src
-# frontend
-RUN cd web/app && \
-    npm update && \
-    ng build --prod
-# embed frontend
-RUN rice embed-go
 
 ARG opts
-RUN env ${opts} go build -ldflags="-w -s" -o dist/meterNG
+RUN env ${opts} make all
 
 # final stage
 FROM scratch

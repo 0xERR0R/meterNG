@@ -10,12 +10,15 @@ import {TranslatedNotificationService} from "../../services/translated-notificat
 export class AdminComponent implements OnInit {
     radioModel = 'Full';
     fileToUpload: File = null;
+    buildInfo: String;
 
     constructor(private meterService: MeterService,
                 private notificationService: TranslatedNotificationService) {
     }
 
     ngOnInit() {
+        this.meterService.getBuildInfo() //
+            .subscribe(res => this.buildInfo = res);
     }
 
     onSubmitImport() {

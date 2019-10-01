@@ -4,5 +4,4 @@ web/app/dist
 web/app/node_modules
 Dockerfile
 docker-compose.yml
-Makefile
 rice-box.go

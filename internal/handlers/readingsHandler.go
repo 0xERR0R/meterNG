@@ -28,7 +28,7 @@ func createMeters(configString string) []model.Meter {
 		r := regexp.MustCompile(`(.*)\((.*)\)`)
 		groups := r.FindStringSubmatch(m)
 		if len(groups) != 3 {
-			log.Fatal("wrong meter configuration")
+			log.Fatal("wrong meter configuration: please enter valid configuration string (example: 'water (m³)'")
 		}
 		result = append(result, model.Meter{Name: strings.Trim(groups[1], " "), Unit: strings.Trim(groups[2], " ")})
 	}

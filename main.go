@@ -50,6 +50,7 @@ func initializeRouter(repo *storage.ReadingRepository, cfg config.Config) *mux.R
 	router.HandleFunc("/api/meters", readingHandler.GetMeters).Methods("GET")
 	router.HandleFunc("/api/admin/export", adminHandler.ExportCsv).Methods("GET")
 	router.HandleFunc("/api/admin/import", adminHandler.ImportCsv).Methods("POST")
+	router.HandleFunc("/api/admin/buildInfo", adminHandler.GetBuildInfo).Methods("GET")
 
 	// embed web application files
 	embedWebApplicationFiles(router)
@@ -60,7 +61,7 @@ func initializeRouter(repo *storage.ReadingRepository, cfg config.Config) *mux.R
 func initializeConfig() config.Config {
 	cfg, err := config.New()
 	if err != nil {
-		log.Fatal("Configuration error")
+		log.Fatal("Configuration error", err)
 	}
 	return cfg
 }

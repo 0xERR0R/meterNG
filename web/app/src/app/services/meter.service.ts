@@ -60,4 +60,10 @@ export class MeterService {
         return this.http.post('/api/admin/import', formData)
             .pipe(map(response => <number>response));
     }
+
+    public getBuildInfo(): Observable<string> {
+        return this.http.get('/api/admin/buildInfo').pipe(map(r => {
+            return r.toString()
+        }))
+    }
 }
