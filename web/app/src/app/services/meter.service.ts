@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Reading} from '../model/reading';
 import {Aggregation} from '../model/aggregation';
 import {map} from "rxjs/operators";
+import {BuildInfo} from "../model/buildInfo";
 
 
 @Injectable({
@@ -62,8 +63,8 @@ export class MeterService {
     }
 
     public getBuildInfo(): Observable<string> {
-        return this.http.get('/api/admin/buildInfo').pipe(map(r => {
-            return r.toString()
+        return this.http.get<BuildInfo>('/api/admin/buildInfo').pipe(map(r => {
+            return r.version;
         }))
     }
 }

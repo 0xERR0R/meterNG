@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/csv"
+	"encoding/json"
 	"fmt"
 	"log"
 	"meter-go/internal/config"
@@ -83,6 +84,8 @@ func (h *AdminHandler) ImportCsv(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *AdminHandler) GetBuildInfo(w http.ResponseWriter, r *http.Request) {
-	log.Printf("git %s", config.GitRevision)
-	w.Write([]byte(config.GitRevision + " / " + config.BuildTime))
+	w.Header().Set("Content-Type", "application/json")
+
+	content, _ := json.Marshal(config.GetBuildInfo())
+	w.Write(content)
 }
