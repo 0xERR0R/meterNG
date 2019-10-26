@@ -1,0 +1,25 @@
+<div class="card h-100">
+    <div class="row no-gutters h-100">
+        <div class="col-4">
+            <div class="icon align-middle h-100 pl-0">
+                <fa-icon [fixedWidth]="true" icon="list-alt" size="10x" class="h-100"></fa-icon>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="card-body text-right">
+                <h5 class="card-title">{{'dashboard.last-values.title' | translate}}</h5>
+                <table class="table table-sm table-borderless">
+                    <tbody>
+                    <tr *ngFor="let val of values | keyvalue">
+                        <th scope="row">{{val.key}}</th>
+                        <td>{{val.value.value | number:'1.1-2'}}</td>
+                        <td>{{val.value.unit}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a href="#" class="btn btn-primary active" [routerLink]="['/readings']" role="button"
+                   aria-pressed="true">{{'dashboard.last-values.readings' | translate}}</a>
+            </div>
+        </div>
+    </div>
+</div>

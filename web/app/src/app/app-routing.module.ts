@@ -4,6 +4,7 @@ import {ChartComponent} from './components/chart/chart.component';
 import {NewRecordComponent} from './components/new-record/new-record.component';
 import {ReadingsComponent} from "./components/readings/readings.component";
 import {AdminComponent} from "./components/admin/admin.component";
+import {DashboardComponent} from "./components/dashboard/dashboard.component";
 
 
 const routes: Routes = [
@@ -13,14 +14,15 @@ const routes: Routes = [
   { path: 'readings', component: ReadingsComponent },
   { path: 'record', component: NewRecordComponent },
   { path: 'admin', component: AdminComponent },
+    {path: 'dashboard', component: DashboardComponent},
   {
     path: '',
-    redirectTo: '/chart',
+      redirectTo: '/dashboard',
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: '/chart',
+      redirectTo: '/dashboard',
     pathMatch: 'full'
   },
 ];

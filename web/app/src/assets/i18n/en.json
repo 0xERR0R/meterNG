@@ -5,6 +5,21 @@
     "readings": "Readings",
     "admin": "Admin"
   },
+  "dashboard": {
+    "last-reading": {
+      "title": "Last Reading",
+      "daysSince": "{{days}} ago",
+      "date": "Date",
+      "record": "Record"
+    },
+    "last-values": {
+      "title": "Last reading values",
+      "readings": "Readingss"
+    },
+    "statistics": {
+      "title": "Consumption last 12 month"
+    }
+  },
   "chartType": {
     "total": "Meter total",
     "monthAll": "Consumption per month",

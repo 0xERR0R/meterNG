@@ -45,6 +45,7 @@ func initializeRouter(repo *storage.ReadingRepository, cfg config.Config) *mux.R
 	router.HandleFunc("/api/reading", readingHandler.GetReadings).Methods("GET")
 	router.HandleFunc("/api/reading", readingHandler.CreateReadings).Methods("POST")
 	router.HandleFunc("/api/reading/{id:[0-9]+}", readingHandler.DeleteReading).Methods("DELETE")
+	router.HandleFunc("/api/lastReadingDate", readingHandler.GetLastReadingDate).Methods("GET")
 	router.HandleFunc("/api/aggregation/month/{meterId}", aggregationHandler.GetAggregationsMonth).Methods("GET")
 	router.HandleFunc("/api/aggregation/year/{meterId}", aggregationHandler.GetAggregationsYear).Methods("GET")
 	router.HandleFunc("/api/meters", readingHandler.GetMeters).Methods("GET")

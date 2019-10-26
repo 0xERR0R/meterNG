@@ -10,7 +10,15 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {faChartLine, faPencilAlt, faTable, faTrash, faWrench} from '@fortawesome/free-solid-svg-icons';
+import {
+    faCalendarCheck,
+    faChartLine,
+    faListAlt,
+    faPencilAlt,
+    faTable,
+    faTrash,
+    faWrench
+} from '@fortawesome/free-solid-svg-icons';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
@@ -31,6 +39,11 @@ import {AdminComponent} from './components/admin/admin.component';
 import {DeviceDetectorModule} from "ngx-device-detector";
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {LastReadingComponent} from './components/dashboard/last-reading/last-reading.component';
+import {LastValuesComponent} from './components/dashboard/last-values/last-values.component';
+import {Consumption2MonthComponent} from './components/dashboard/consumption2-month/consumption2-month.component';
+import {StatisticsComponent} from './components/dashboard/statistics/statistics.component';
 
 registerLocaleData(localeDe);
 
@@ -47,7 +60,12 @@ export function HttpLoaderFactory(http: HttpClient) {
         NavComponent,
         ReadingsComponent,
         ReadingDeleteConfirmationComponent,
-        AdminComponent
+        AdminComponent,
+        DashboardComponent,
+        LastReadingComponent,
+        LastValuesComponent,
+        Consumption2MonthComponent,
+        StatisticsComponent
     ],
     imports: [
         BrowserModule,
@@ -71,7 +89,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         ModalModule.forRoot(),
         ButtonsModule.forRoot(),
         DeviceDetectorModule.forRoot(),
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
     ],
     providers: [{provide: ErrorHandler, useClass: NotificationErrorHandler},
         {provide: LOCALE_ID, useFactory: () => LocaleHelper.getCurrentLocale()}
@@ -82,6 +100,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 export class AppModule {
     constructor() {
         // Add an icon to the library for convenient access in other components
-        library.add(faChartLine, faWrench, faPencilAlt, faTable, faTrash);
+        library.add(faChartLine, faWrench, faPencilAlt, faTable, faTrash, faCalendarCheck, faListAlt, faChartLine);
     }
 }

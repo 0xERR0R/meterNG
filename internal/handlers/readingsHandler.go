@@ -73,6 +73,17 @@ func (h *ReadingHandler) DeleteReading(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (h *ReadingHandler) GetLastReadingDate(w http.ResponseWriter, r *http.Request) {
+	date, err := h.repo.GetReadingsLastDate([]string{})
+	if err != nil {
+		log.Print("can't retrieve last reading date", err)
+		w.WriteHeader(http.StatusBadRequest)
+	} else {
+		content, _ := json.Marshal(date)
+		w.Write(content)
+	}
+}
+
 func (h *ReadingHandler) CreateReadings(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var readings []model.Reading

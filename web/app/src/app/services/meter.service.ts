@@ -67,4 +67,9 @@ export class MeterService {
             return r.version;
         }))
     }
+
+    public getLastReadingDate(): Observable<Date> {
+        return this.http.get<string>('/api/lastReadingDate').pipe(map(r => new Date(r)
+        ))
+    }
 }

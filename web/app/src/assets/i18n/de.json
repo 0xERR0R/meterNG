@@ -5,6 +5,21 @@
     "readings": "Messwerte",
     "admin": "Admin"
   },
+  "dashboard": {
+    "last-reading": {
+      "title": "Letzte Ablesung",
+      "daysSince": "vor {{days}} Tagen",
+      "date": "Datum",
+      "record": "Erfassen"
+    },
+    "last-values": {
+      "title": "Letzte Messwerte",
+      "readings": "Messerte"
+    },
+    "statistics": {
+      "title": "Verbrauch letzte 12 Monate"
+    }
+  },
   "chartType": {
     "total": "Zählerstand gesamt",
     "monthAll": "Verbrauch pro Monat",

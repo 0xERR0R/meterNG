@@ -39,7 +39,7 @@ func getAggregationsInternal(w http.ResponseWriter, r *http.Request, fnAgg aggFn
 	} else {
 		aggregations, err := fnAgg(readings)
 		if err != nil {
-			log.Println("can't calculate aggregations")
+			log.Println("can't calculate aggregations", err)
 			w.WriteHeader(http.StatusBadRequest)
 		} else {
 			content, _ := json.Marshal(aggregations)

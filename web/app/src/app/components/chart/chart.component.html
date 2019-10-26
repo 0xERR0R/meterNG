@@ -1,19 +1,6 @@
 <div *ngIf="meter">
     <div class="row">
-        <div class="dropdown mb-1 ml-2 mr-2">
-            <a class="btn btn-secondary  btn-sm dropdown-toggle" href="#" role="button" id="componentTypeMenu"
-               data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-                {{'chartType.' + chartTypeParam | translate}}
-            </a>
-            <div class="dropdown-menu" aria-labelledby="componentTypeMenu">
-                <a class="dropdown-item" href="#" *ngFor="let chartType of getPossibleChartTypes()"
-                   [routerLink]="['/chart', meter.name, chartType]"
-                   routerLinkActive="active"><strong>{{meter.name + ': '}}</strong> {{'chartType.' + chartType | translate}}
-                </a>
-            </div>
-        </div>
-        <div class="dropdown mb-1">
+        <div class="dropdown mb-1  ml-2 mr-2">
             <a class="btn btn-secondary  btn-sm dropdown-toggle" href="#" role="button" id="meterMenu"
                data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
@@ -23,6 +10,19 @@
                 <a class="dropdown-item" href="#" *ngFor="let meter of getPossibleMeters()"
                    [routerLink]="['/chart', meter.name, chartTypeParam]"
                    routerLinkActive="active"><strong>{{meter.name + ': ' }}</strong> {{'chartType.' + chartTypeParam | translate}}
+                </a>
+            </div>
+        </div>
+        <div class="dropdown mb-1 ml-2 mr-2">
+            <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="componentTypeMenu"
+               data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                {{'chartType.' + chartTypeParam | translate}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="componentTypeMenu">
+                <a class="dropdown-item" href="#" *ngFor="let chartType of getPossibleChartTypes()"
+                   [routerLink]="['/chart', meter.name, chartType]"
+                   routerLinkActive="active"><strong>{{meter.name + ': '}}</strong> {{'chartType.' + chartType | translate}}
                 </a>
             </div>
         </div>
