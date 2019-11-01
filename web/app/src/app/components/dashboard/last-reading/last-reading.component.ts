@@ -8,7 +8,7 @@ import {MeterService} from "../../../services/meter.service";
 })
 export class LastReadingComponent implements OnInit {
     lastReadingDate: Date;
-    daysSince: number
+    daysSince: number;
 
     constructor(private meterService: MeterService) {
     }
@@ -16,7 +16,9 @@ export class LastReadingComponent implements OnInit {
     ngOnInit() {
         this.meterService.getLastReadingDate().subscribe(res => {
             this.lastReadingDate = res;
-            this.daysSince = Math.ceil((new Date(Date.now()) - this.lastReadingDate)  / (1000 * 60 * 60 * 24)); 
+
+            const diff = new Date(Date.now()).getTime() - this.lastReadingDate.getTime();
+            this.daysSince = Math.ceil(diff  / (1000 * 60 * 60 * 24));
         })
 
     }
