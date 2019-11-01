@@ -15,8 +15,8 @@ export class LastReadingComponent implements OnInit {
 
     ngOnInit() {
         this.meterService.getLastReadingDate().subscribe(res => {
-            this.lastReadingDate = res
-            this.daysSince = new Date(Date.now()).getDate() - this.lastReadingDate.getDate()
+            this.lastReadingDate = res;
+            this.daysSince = Math.ceil((new Date(Date.now()) - this.lastReadingDate)  / (1000 * 60 * 60 * 24)); 
         })
 
     }
