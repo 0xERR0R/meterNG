@@ -21,7 +21,6 @@ testBackend: ## Run backend tests
 	go test -v -cover $(shell go list ./...)
 
 buildDockerImages: ## Build docker images
-	docker build --build-arg opts="GOARCH=arm GOARM=6" --pull --tag ${DOCKER_IMAGE_NAME}:arm32v6 .
 	docker build --build-arg opts="GOARCH=amd64" --pull --tag ${DOCKER_IMAGE_NAME}:amd64 .
 
 dockerManifestAndPush: ## create manifest for multi arch image and push to docker hub

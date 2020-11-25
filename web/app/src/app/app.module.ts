@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {ErrorHandler, LOCALE_ID, NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoadingBarHttpClientModule} from '@ngx-loading-bar/http-client';
 import {ButtonsModule} from 'ngx-bootstrap/buttons';
 
@@ -9,16 +9,6 @@ import {ChartsModule} from 'ng2-charts';
 import {SimpleNotificationsModule} from 'angular2-notifications';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {library} from '@fortawesome/fontawesome-svg-core';
-import {
-    faCalendarCheck,
-    faChartLine,
-    faListAlt,
-    faPencilAlt,
-    faTable,
-    faTrash,
-    faWrench
-} from '@fortawesome/free-solid-svg-icons';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
@@ -30,13 +20,12 @@ import {NewRecordComponent} from './components/new-record/new-record.component';
 import {NotificationErrorHandler} from './shared/errorhandler';
 import {NavComponent} from './components/nav/nav.component';
 import {ReadingsComponent} from './components/readings/readings.component';
-import {LocaleHelper} from "./shared/LocaleHelper";
+import {LocaleHelper} from './shared/LocaleHelper';
 import {registerLocaleData} from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {ReadingDeleteConfirmationComponent} from './components/reading-delete-confirmation/reading-delete-confirmation.component';
 import {AdminComponent} from './components/admin/admin.component';
-import {DeviceDetectorModule} from "ngx-device-detector";
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
@@ -88,7 +77,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         }),
         ModalModule.forRoot(),
         ButtonsModule.forRoot(),
-        DeviceDetectorModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
     ],
     providers: [{provide: ErrorHandler, useClass: NotificationErrorHandler},
@@ -98,8 +86,4 @@ export function HttpLoaderFactory(http: HttpClient) {
     bootstrap: [AppComponent]
 })
 export class AppModule {
-    constructor() {
-        // Add an icon to the library for convenient access in other components
-        library.add(faChartLine, faWrench, faPencilAlt, faTable, faTrash, faCalendarCheck, faListAlt, faChartLine);
-    }
 }

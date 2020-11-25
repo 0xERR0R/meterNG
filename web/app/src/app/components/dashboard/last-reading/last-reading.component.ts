@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {MeterService} from "../../../services/meter.service";
+import {MeterService} from '../../../services/meter.service';
+import {
+    faCalendarCheck
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-last-reading',
@@ -7,6 +10,7 @@ import {MeterService} from "../../../services/meter.service";
     styleUrls: ['./last-reading.component.css']
 })
 export class LastReadingComponent implements OnInit {
+    faCalendarCheck = faCalendarCheck;
     lastReadingDate: Date;
     daysSince: number;
 

@@ -41,7 +41,7 @@
             <td>{{reading.value | number:'1.2-2'}}</td>
             <td style="text-align:right">
                 <button type="button" class="btn btn-outline-danger btn-sm" (click)="openConfirmDialog(reading)">
-                    <fa-icon icon="trash"></fa-icon>
+                    <fa-icon [icon]="faTrash"></fa-icon>
                 </button>
             </td>
         </tr>

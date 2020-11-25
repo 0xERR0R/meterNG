@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/csv"
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 	"log"
 	"meter-go/internal/model"
 	"time"
@@ -36,7 +36,6 @@ func (s *ReadingRepository) GetReadingsByMeterId(meterIds []string) ([]model.Rea
 	return result, nil
 }
 
-// TODO refactoring wie unten
 func (s *ReadingRepository) GetReadings() ([]model.Reading, error) {
 	var result []model.Reading
 
@@ -50,7 +49,7 @@ func (s *ReadingRepository) GetReadings() ([]model.Reading, error) {
 
 func (s *ReadingRepository) GetReadingsLastDate(meterIds []string) (time.Time, error) {
 	var max time.Time
-	db := s.db.Table("readings").Select("MAX(date)")
+	db := s.db.Table("readings").Select("date").Order("date DESC").Limit(1)
 	if len(meterIds) > 0 {
 		db.Where("meter_Id in (?)", meterIds)
 	}
@@ -96,7 +95,7 @@ func (s *ReadingRepository) DeleteReadings(id int) error {
 }
 
 func (s *ReadingRepository) DeleteAllReadings() error {
-	s.db.Delete(&model.Reading{})
+	s.db.Where("1=1").Delete(&model.Reading{})
 	return s.db.Error
 }
 

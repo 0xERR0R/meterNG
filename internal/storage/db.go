@@ -1,22 +1,19 @@
 package storage
 
 import (
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 	"log"
-	"meter-go/internal/config"
 	"meter-go/internal/model"
 	"time"
 )
 
 // InitDB creates and migrates the database
-func InitDB(dbConfig config.DbConfig) (*gorm.DB, error) {
+func InitDB() (*gorm.DB, error) {
 	retryCount := 5
 	var err error
-	var db *gorm.DB
 	for retryCount > 0 {
-		db, err = gorm.Open(dbConfig.Dialect, dbConfig.Url)
+		db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 		if err != nil {
 			log.Printf("connection error, retry again (attempt %d)...", retryCount)
 			time.Sleep(3 * time.Second)

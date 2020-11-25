@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {BsModalRef} from "ngx-bootstrap";
-import {Subject} from "rxjs";
-import {Reading} from "../../model/reading";
+import {BsModalRef} from 'ngx-bootstrap/modal';
+import {Subject} from 'rxjs';
+import {Reading} from '../../model/reading';
 
 @Component({
   selector: 'app-reading-delete-confirmation',

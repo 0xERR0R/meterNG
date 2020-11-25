@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {MeterService} from "../../../services/meter.service";
-import {Aggregation} from "../../../model/aggregation";
+import {MeterService} from '../../../services/meter.service';
+import {Aggregation} from '../../../model/aggregation';
+import {
+    faChartLine
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-statistics',
@@ -8,11 +11,12 @@ import {Aggregation} from "../../../model/aggregation";
     styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
+    faChartLine = faChartLine;
 
     constructor(private meterService: MeterService) {
     }
 
-    values: Map<string, object> = new Map<string, object>()
+    values: Map<string, object> = new Map<string, object>();
 
     ngOnInit() {
         this.meterService.getMeters().subscribe(meters => {
@@ -20,25 +24,25 @@ export class StatisticsComponent implements OnInit {
                 this.meterService.getAggregationsMonth(m.name).subscribe(aggregations => {
                     aggregations = aggregations.sort((a: Aggregation, b: Aggregation) => ((a.year > b.year) || ((a.year == b.year) && (a.month > b.month))) ? -1 : 1);
                     if (aggregations.length >= 13) {
-                        let tmp: number[] = [];
+                        const tmp: number[] = [];
                         // collect last 12 month, skip current month
                         for (let i = 1; i < 13; i++) {
                             tmp.push(Number(aggregations[i].value));
                         }
-                        let sum = tmp.reduce(function (a, b) {
+                        const sum = tmp.reduce(function(a, b) {
                             return a + b;
                         });
-                        let avg = sum / tmp.length;
+                        const avg = sum / tmp.length;
                         this.values.set(m.name, {
-                            avg: avg,
+                            avg,
                             min: Math.min.apply(Math, tmp),
                             max: Math.max.apply(Math, tmp),
                             unit: m.unit
-                        })
+                        });
                     }
-                })
-            })
-        })
+                });
+            });
+        });
     }
 
 

@@ -7,11 +7,6 @@ import (
 	"strings"
 )
 
-type DbConfig struct {
-	Dialect string
-	Url     string
-}
-
 type TaskConfig struct {
 	Backup       BackupTaskConfig
 	Notification NotificationTaskConfig
@@ -40,7 +35,6 @@ type Config struct {
 	Port uint16
 
 	Meters string
-	Db     DbConfig
 	Email  MailConfig
 	Task   TaskConfig
 }

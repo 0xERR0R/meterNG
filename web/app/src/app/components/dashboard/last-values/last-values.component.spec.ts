@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {LastValuesComponent} from './last-values.component';
 
@@ -6,7 +6,7 @@ describe('LastValuesComponent', () => {
     let component: LastValuesComponent;
     let fixture: ComponentFixture<LastValuesComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [LastValuesComponent]
         })

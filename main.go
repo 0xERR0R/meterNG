@@ -4,8 +4,8 @@ import (
 	"fmt"
 	rice "github.com/GeertJohan/go.rice"
 	"github.com/gorilla/mux"
-	"github.com/jinzhu/gorm"
 	"github.com/robfig/cron"
+	"gorm.io/gorm"
 	"log"
 	"meter-go/internal/config"
 	"meter-go/internal/handlers"
@@ -19,12 +19,8 @@ func main() {
 	printBanner()
 
 	cfg := initializeConfig()
-	db := initializeDB(cfg)
-	defer func() {
-		if err := db.Close(); err != nil {
-			log.Print("can't close database connection", err)
-		}
-	}()
+	db := initializeDB()
+
 	repo := storage.New(db)
 	router := initializeRouter(repo, cfg)
 
@@ -67,8 +63,8 @@ func initializeConfig() config.Config {
 	return cfg
 }
 
-func initializeDB(cfg config.Config) *gorm.DB {
-	db, err := storage.InitDB(cfg.Db)
+func initializeDB() *gorm.DB {
+	db, err := storage.InitDB()
 	if err != nil {
 		log.Fatal("failed to connect database", err)
 	}
