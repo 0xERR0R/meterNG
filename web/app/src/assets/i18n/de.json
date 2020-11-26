@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "charts": "Diagramme",
+    "record": "Erfassung",
+    "readings": "Messwerte",
+    "admin": "Admin"
+  },
+  "dashboard": {
+    "last-reading": {
+      "title": "Letzte Ablesung",
+      "daysSince": "vor {{days}} Tagen",
+      "date": "Datum",
+      "record": "Erfassen"
+    },
+    "last-values": {
+      "title": "Letzte Messwerte",
+      "readings": "Messerte"
+    },
+    "statistics": {
+      "title": "Verbrauch letzte 12 Monate"
+    }
+  },
+  "chartType": {
+    "total": "Zählerstand gesamt",
+    "monthAll": "Verbrauch pro Monat",
+    "month": "Jährlicher Verbrauch pro Monat",
+    "year": "Verbrauch pro Jahr"
+  },
+  "chartComponent": {
+    "type": "Diagramm"
+  },
+  "readingsComponent": {
+    "meter": "Zähler",
+    "date": "Datum",
+    "value": "Wert",
+    "dateFromUntil": "Datum von/bis",
+    "readingDeleted.title": "Messwert gelöscht",
+    "readingDeleted.text": "Messwert wurde erfolgreich gelöscht"
+  },
+  "readingsDeleteConfirmationComponent": {
+    "yes": "Ja",
+    "no": "Nein",
+    "title": "Bestätigung",
+    "text": "Diesen Wert wirklich löschen?"
+  },
+  "newRecordComponent": {
+    "readingStored.title": "Messwerte gespeichert",
+    "readingStored.text": "Messwerte wurden erfolgreich gespeichert",
+    "saveReadings": "Speichern"
+  },
+  "adminComponent": {
+    "import": "Import",
+    "export": "Export",
+    "export.cardTitle": "Messwerte exportieren",
+    "export.cardText": "Alle Messwerte als CSV-Datei exportieren",
+    "import.cardTitle": "Datenwerte importieren",
+    "import.cardText": "Messwerte aus CSV-Datei importieren",
+    "import.chooseFile": "Datei wählen",
+    "readingsImported.title": "Messwerte importiert",
+    "readingsImported.text": " {{ count }} Messwert(e) wurde(n) erfolgreich importiert"
+  },
+  "readingDate": "Ablesedatum",
+  "month": "Monat",
+  "year": "Jahr",
+  "monthYear": "Monat / Jahr",
+  "valuePlaceholder": "Zählerstand"
+}

@@ -1,0 +1,50 @@
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="meterFilter">{{ 'readingsComponent.meter' | translate }}</label>
+    </div>
+    <select [(ngModel)]="filterMeterId" class="custom-select" id="meterFilter">
+        <option selected></option>
+        <option *ngFor="let meter of meters" value="{{meter.name}}">{{meter.name}}</option>
+    </select>
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">{{ 'readingsComponent.dateFromUntil' | translate }}</span>
+    </div>
+    <select [(ngModel)]="filterYearFrom" class="custom-select" id="fromFilter">
+        <option selected></option>
+        <option *ngFor="let year of filterYears" value="{{year}}">{{year}}</option>
+    </select>
+    <select [(ngModel)]="filterYearUntil" class="custom-select" id="untilFilter">
+        <option selected></option>
+        <option *ngFor="let year of filterYears" value="{{year}}">{{year}}</option>
+    </select>
+</div>
+<div>
+    <div *ngIf="readings?.length == 0">
+        <p>no data</p>
+    </div>
+    <table *ngIf="readings?.length > 0" class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th width="30%" scope="col">{{ 'readingsComponent.meter' | translate }}</th>
+            <th width="30%" scope="col">{{ 'readingsComponent.date' | translate }}</th>
+            <th width="30%" scope="col">{{ 'readingsComponent.value' | translate }}</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="" [class.table-info]="reading.type === OFFSET" *ngFor="let reading of filter(readings)">
+            <td> {{reading.meterId}}<span *ngIf="reading.type === OFFSET"
+                                                        class="badge badge-info">Offset</span></td>
+            <td>{{reading.date | date}}</td>
+            <td>{{reading.value | number:'1.2-2'}}</td>
+            <td style="text-align:right">
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="openConfirmDialog(reading)">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

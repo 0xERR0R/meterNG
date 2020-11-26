@@ -1,0 +1,10 @@
+.navbar {
+    max-height: 25px;
+    padding: 0;
+}
+
+.navbar-brand {
+    max-height: 25px;
+    padding: 0;
+    font-size: 15px;
+}

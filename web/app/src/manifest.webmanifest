@@ -1,0 +1,46 @@
+{
+  "name": "meterNG",
+  "short_name": "meterNG",
+  "theme_color": "#343a40",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "assets/icons/meter-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/meter-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/meter-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/meter-64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/meter-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/meter-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/meter-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

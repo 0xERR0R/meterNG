@@ -1,0 +1,34 @@
+<div class="card h-100">
+    <div class="row no-gutters h-100">
+        <div class="col-2">
+            <div class="icon align-middle h-100 pl-0">
+                <fa-icon [fixedWidth]="true" [icon]="faChartLine" size="10x" class="h-100"></fa-icon>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="card-body text-right">
+                <h5 class="card-title">{{'dashboard.statistics.title' | translate}}</h5>
+                <table class="table table-sm table-borderless">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Min</th>
+                        <th scope="col">Avg</th>
+                        <th scope="col">Max</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let val of values | keyvalue">
+                        <th scope="row">{{val.key}}</th>
+                        <td>{{val.value.min | number:'1.1-2'}}</td>
+                        <td>{{val.value.avg | number:'1.1-2'}}</td>
+                        <td>{{val.value.max | number:'1.1-2'}}</td>
+                        <td>{{val.value.unit }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
