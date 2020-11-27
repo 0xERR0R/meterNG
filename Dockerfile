@@ -31,6 +31,8 @@ LABEL org.opencontainers.image.source="https://github.com/0xERR0R/meterNG" \
 RUN apk add --no-cache gcc
 COPY --from=build-env /src/dist/meterNG /app/meterNG
 
+VOLUME /data
+
 # the timezone data:
 COPY --from=build-env /usr/share/zoneinfo /usr/share/zoneinfo
 # the tls certificates:

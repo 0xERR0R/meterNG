@@ -13,7 +13,7 @@ func InitDB() (*gorm.DB, error) {
 	retryCount := 5
 	var err error
 	for retryCount > 0 {
-		db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+		db, err := gorm.Open(sqlite.Open("/data/meterng.db"), &gorm.Config{})
 		if err != nil {
 			log.Printf("connection error, retry again (attempt %d)...", retryCount)
 			time.Sleep(3 * time.Second)

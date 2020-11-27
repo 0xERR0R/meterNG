@@ -23,6 +23,9 @@ services:
     image: ghcr.io/0xerr0r/meterng
     container_name: meterng
     restart: unless-stopped
+    mem_limit: 30MB
+    volumes:
+      - database:/data
     environment:
       # comma separated list of meters. Format: meterName(Unit)
       - METER_METERS=Water (m³), Gas (m³)
@@ -42,4 +45,6 @@ services:
       # url for record page (used as link in email)
       - METER_TASK.NOTIFICATION.URL=http://external_meter_url/record
       - TZ=Europe/Berlin
+volumes:
+  database:
 ```
