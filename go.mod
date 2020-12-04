@@ -14,5 +14,5 @@ require (
 	github.com/spf13/viper v1.4.0
 	github.com/stretchr/testify v1.3.0
 	gorm.io/driver/sqlite v1.1.4
-	gorm.io/gorm v1.20.7
+	gorm.io/gorm v1.20.8
 )
