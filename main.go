@@ -2,10 +2,6 @@ package main
 
 import (
 	"fmt"
-	rice "github.com/GeertJohan/go.rice"
-	"github.com/gorilla/mux"
-	"github.com/robfig/cron"
-	"gorm.io/gorm"
 	"log"
 	"meter-go/internal/config"
 	"meter-go/internal/handlers"
@@ -13,6 +9,11 @@ import (
 	"meter-go/internal/storage"
 	"meter-go/internal/tasks"
 	"net/http"
+
+	rice "github.com/GeertJohan/go.rice"
+	"github.com/gorilla/mux"
+	"github.com/robfig/cron"
+	"gorm.io/gorm"
 )
 
 func main() {
@@ -35,6 +36,7 @@ func initializeRouter(repo *storage.ReadingRepository, cfg config.Config) *mux.R
 	aggregationHandler := handlers.NewAggregationHandler(repo)
 	readingHandler := handlers.NewReadingHandler(repo, cfg)
 	adminHandler := handlers.NewAdminHandler(repo)
+	navHandler := handlers.NewNavHandler(cfg)
 
 	// configure routers
 	router := mux.NewRouter()
@@ -48,6 +50,7 @@ func initializeRouter(repo *storage.ReadingRepository, cfg config.Config) *mux.R
 	router.HandleFunc("/api/admin/export", adminHandler.ExportCsv).Methods("GET")
 	router.HandleFunc("/api/admin/import", adminHandler.ImportCsv).Methods("POST")
 	router.HandleFunc("/api/admin/buildInfo", adminHandler.GetBuildInfo).Methods("GET")
+	router.HandleFunc("/api/nav/label", navHandler.GetLabel).Methods("GET")
 
 	// embed web application files
 	embedWebApplicationFiles(router)
@@ -100,10 +103,11 @@ func registerCronTasks(configuration config.Config, repo *storage.ReadingReposit
 	sender := mail.NewSender(configuration.Email, templates)
 	backupTaskCfg := configuration.Task.Backup
 	notificationTaskCfg := configuration.Task.Notification
+	label := configuration.Label
 
 	backupTask := tasks.Task{
 		Factory: func() cron.Job {
-			return tasks.NewBackupTask(sender, repo)
+			return tasks.NewBackupTask(sender, repo, label)
 		},
 		Description:          "backup task",
 		SchedulingDefinition: backupTaskCfg.Cron,
@@ -111,7 +115,7 @@ func registerCronTasks(configuration config.Config, repo *storage.ReadingReposit
 
 	notificationTask := tasks.Task{
 		Factory: func() cron.Job {
-			return tasks.NewNotificationTask(sender, repo, notificationTaskCfg)
+			return tasks.NewNotificationTask(sender, repo, notificationTaskCfg, label)
 		},
 		Description:          "notification task",
 		SchedulingDefinition: notificationTaskCfg.Cron,
