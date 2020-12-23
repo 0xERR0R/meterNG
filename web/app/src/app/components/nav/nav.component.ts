@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {NavService} from '../../services/nav.service';
 import {
     faChartLine,
     faListAlt,
@@ -20,10 +21,13 @@ export class NavComponent implements OnInit {
     faTable = faTable;
     faTrash = faTrash;
     faListAlt = faListAlt;
-    constructor() {
+    label: String;
+
+    constructor(private navService: NavService) {
     }
 
     ngOnInit() {
+        this.navService.getLabel().subscribe(label => this.label = !label || 0 === label.length ? '' : '(' + label + ')');
     }
 
 }

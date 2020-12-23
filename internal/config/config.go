@@ -1,10 +1,11 @@
 package config
 
 import (
-	"github.com/spf13/viper"
 	"log"
 	"sort"
 	"strings"
+
+	"github.com/spf13/viper"
 )
 
 type TaskConfig struct {
@@ -35,6 +36,7 @@ type Config struct {
 	Port uint16
 
 	Meters string
+	Label  string
 	Email  MailConfig
 	Task   TaskConfig
 }
@@ -54,6 +56,7 @@ func initViper() (Config, error) {
 
 	viper.SetDefault("port", 8080)
 	viper.SetDefault("meters", "")
+	viper.SetDefault("label", "")
 	viper.SetDefault("email.recipient", "")
 	viper.SetDefault("email.smtp_host", "")
 	viper.SetDefault("email.sender", "")

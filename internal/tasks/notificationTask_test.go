@@ -1,11 +1,12 @@
 package tasks
 
 import (
-	"github.com/stretchr/testify/mock"
 	"meter-go/internal/config"
 	"meter-go/internal/mail"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/mock"
 )
 
 type senderMock struct {
@@ -27,7 +28,7 @@ func (m senderMock) SendMail(subject string, tmpl string, data interface{}, file
 
 func TestNotificationNoMail(t *testing.T) {
 	senderMock := new(senderMock)
-	sut := NewNotificationTask(senderMock, readingsLastDateLoaderMock{time.Now().AddDate(0, 0, -7)}, config.NotificationTaskConfig{Days: 7})
+	sut := NewNotificationTask(senderMock, readingsLastDateLoaderMock{time.Now().AddDate(0, 0, -7)}, config.NotificationTaskConfig{Days: 7}, "")
 	sut.Run()
 	senderMock.AssertExpectations(t)
 }
@@ -41,7 +42,7 @@ func TestNotificationMail(t *testing.T) {
 		mail.FileAttachment{}).Return(nil)
 	sut := NewNotificationTask(senderMock,
 		readingsLastDateLoaderMock{time.Now().AddDate(0, 0, -8)},
-		config.NotificationTaskConfig{Days: 7, Url: "myurl"})
+		config.NotificationTaskConfig{Days: 7, Url: "myurl"}, "")
 	sut.Run()
 	senderMock.AssertExpectations(t)
 }

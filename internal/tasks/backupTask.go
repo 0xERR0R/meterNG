@@ -9,10 +9,11 @@ import (
 type BackupTask struct {
 	sender mail.Mailer
 	repo   *storage.ReadingRepository
+	label  string
 }
 
-func NewBackupTask(sender mail.Mailer, repo *storage.ReadingRepository) BackupTask {
-	return BackupTask{sender: sender, repo: repo}
+func NewBackupTask(sender mail.Mailer, repo *storage.ReadingRepository, label string) BackupTask {
+	return BackupTask{sender: sender, repo: repo, label: label}
 }
 
 func (b BackupTask) String() string {
@@ -25,7 +26,11 @@ func (b BackupTask) Run() {
 	if err != nil {
 		log.Println("error occurred in backup task", err)
 	} else {
-		err := b.sender.SendMail("new backup file",
+		var subject string = "new backup file"
+		if len(b.label) > 0 {
+			subject = subject + " (" + b.label + ")"
+		}
+		err := b.sender.SendMail(subject,
 			"backup.html",
 			nil,
 			mail.FileAttachment{FileName: filename, Data: content, ContentType: "application/csv"})

@@ -8,7 +8,7 @@
   "dashboard": {
     "last-reading": {
       "title": "Last Reading",
-      "daysSince": "{{days}} ago",
+      "daysSince": "{{days}} days ago",
       "date": "Date",
       "record": "Record"
     },
