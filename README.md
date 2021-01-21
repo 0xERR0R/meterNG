@@ -1,4 +1,6 @@
 ![Docker Image CI](https://github.com/0xERR0R/meterNG/workflows/Docker%20Image%20CI/badge.svg)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=0xERR0R/meterNG)](https://dependabot.com)
+
 
 # meterNG
 
