@@ -22,7 +22,7 @@
     "@angular/service-worker": "^11.0.2",
     "@fortawesome/angular-fontawesome": "^0.8.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
-    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@ngx-loading-bar/core": "^5.1.0",
     "@ngx-loading-bar/http-client": "^5.1.0",
     "@ngx-loading-bar/router": "^5.1.0",
