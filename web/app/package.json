@@ -36,7 +36,7 @@
     "jquery": "^3.6.0",
     "ng2-charts": "^2.4.2",
     "ngx-bootstrap": "^6.2.0",
-    "ngx-device-detector": "^2.0.9",
+    "ngx-device-detector": "^2.0.10",
     "rxjs": "~6.6.7",
     "tslib": "^2.2.0",
     "zone.js": "~0.10.2"
