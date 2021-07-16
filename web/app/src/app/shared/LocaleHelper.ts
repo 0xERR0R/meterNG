@@ -1,6 +1,5 @@
 import {TranslateService} from "@ngx-translate/core";
 import * as moment from 'moment';
-import {log} from "util";
 
 export class LocaleHelper {
     public static defaultLocaleId = 'en';
