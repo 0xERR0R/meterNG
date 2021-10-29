@@ -12,5 +12,5 @@ require (
 	github.com/stretchr/objx v0.1.1 // indirect
 	github.com/stretchr/testify v1.7.0
 	gorm.io/driver/sqlite v1.2.3
-	gorm.io/gorm v1.22.1
+	gorm.io/gorm v1.22.2
 )
