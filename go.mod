@@ -11,6 +11,6 @@ require (
 	github.com/spf13/viper v1.8.0
 	github.com/stretchr/objx v0.1.1 // indirect
 	github.com/stretchr/testify v1.7.0
-	gorm.io/driver/sqlite v1.1.4
-	gorm.io/gorm v1.21.11
+	gorm.io/driver/sqlite v1.2.6
+	gorm.io/gorm v1.22.3
 )
