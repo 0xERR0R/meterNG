@@ -1,4 +1,4 @@
-project_name: meterNG
+project_name: meterng
 before:
   hooks:
     - sh -c "cd web/app && npm install && ionic build --prod"
