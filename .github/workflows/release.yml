@@ -31,6 +31,12 @@ jobs:
       - name: Fetch all tags
         run: git fetch --force --tags
 
+      - name: Install @angular/cli
+        run: npm i -g @angular/cli
+
+      - name: Set up Ionic
+        uses: coturiv/setup-ionic@v1
+
       - name: Set up Go
         uses: actions/setup-go@v2
         with:

@@ -9,7 +9,7 @@ GOOS=linux
 all: buildFrontend buildBackend ## Build the final binary, include web frontend
 
 buildBackend: *.go ## Build backend (GO part)
-	go build -ldflags="-w -s -X meter-go/internal/config.GitRevision=$(GITCOMMIT) -X meter-go/internal/config.BuildTime=$(BUILD_TIME)" -o dist/meterNG
+	go build -ldflags="-w -s -X github.com/0xERR0R/meterNG/internal/config.GitRevision=$(GITCOMMIT) -X github.com/0xERR0R/meterNG/internal/config.BuildTime=$(BUILD_TIME)" -o dist/meterNG
 
 buildFrontend:  ## Build frontend (Angular part)
 	cd web/app && npm install && ionic build --prod
