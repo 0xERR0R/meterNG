@@ -12,7 +12,7 @@ buildBackend: *.go ## Build backend (GO part)
 	go build -ldflags="-w -s -X meter-go/internal/config.GitRevision=$(GITCOMMIT) -X meter-go/internal/config.BuildTime=$(BUILD_TIME)" -o dist/meterNG
 
 buildFrontend:  ## Build frontend (Angular part)
-	cd web/app && ionic build --prod
+	cd web/app && npm install && ionic build --prod
 
 testBackend: ## Run backend tests
 	go test -v -cover $(shell go list ./...)
