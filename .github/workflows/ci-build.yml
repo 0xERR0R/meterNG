@@ -13,6 +13,7 @@ jobs:
         with:
           node-version: 18
       - run: npm install -g @ionic/cli
+      - run: npm install @ionic/angular@latest --save
 
       - name: Set up Go
         uses: actions/setup-go@v3
