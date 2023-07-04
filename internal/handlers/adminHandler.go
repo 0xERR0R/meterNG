@@ -4,10 +4,10 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"github.com/0xERR0R/meterNG/internal/config"
+	"github.com/0xERR0R/meterNG/internal/model"
+	"github.com/0xERR0R/meterNG/internal/storage"
 	"log"
-	"meter-go/internal/config"
-	"meter-go/internal/model"
-	"meter-go/internal/storage"
 	"net/http"
 	"strconv"
 )

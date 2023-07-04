@@ -1,0 +1,24 @@
+<ion-content>
+  <form (ngSubmit)="onSubmitImport()">
+    <ion-list>
+      <ion-radio-group value="Full" [(ngModel)]="selectedType" name="importType">
+        <ion-list-header>
+          <ion-label>Import type</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>Full</ion-label>
+          <ion-radio slot="start" value="Full"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Incremental</ion-label>
+          <ion-radio slot="start" value="Incremental"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+    <input accept=".csv" name="file" type="file" class="custom-file-input"
+           (change)="handleFileInput($event)" id="customFile">
+    <ion-button [disabled]="!fileToUpload" type="submit" color="danger" expand="block">Submit</ion-button>
+  </form>
+</ion-content>

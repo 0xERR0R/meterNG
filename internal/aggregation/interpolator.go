@@ -2,8 +2,8 @@ package aggregation
 
 import (
 	"errors"
+	"github.com/0xERR0R/meterNG/internal/model"
 	"github.com/shopspring/decimal"
-	"meter-go/internal/model"
 	"sort"
 	"time"
 )
@@ -13,7 +13,7 @@ type Interpolator struct {
 	minX, maxX float64
 }
 
-//  Calculates a reading value on a arbitrary date using linear interpolation.
+// Calculates a reading value on a arbitrary date using linear interpolation.
 func NewInterpolator(readings []model.Reading) (*Interpolator, error) {
 
 	if len(readings) < 2 {

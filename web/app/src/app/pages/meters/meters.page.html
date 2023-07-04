@@ -1,0 +1,11 @@
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let meter of meters">
+      <ion-label>
+        {{ meter.name }}
+      <p>{{meter.unit}}</p>
+      </ion-label>
+      <ion-label slot="end">4711.03</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -6,16 +6,13 @@ GITCOMMIT := $(shell git rev-parse --short HEAD)
 BUILD_TIME=$(shell date '+%Y%m%d-%H%M%S')
 GOOS=linux
 
-all: buildFrontend embedFrontend buildBackend ## Build the final binary, include web frontend
+all: buildFrontend buildBackend ## Build the final binary, include web frontend
 
 buildBackend: *.go ## Build backend (GO part)
 	go build -ldflags="-w -s -X meter-go/internal/config.GitRevision=$(GITCOMMIT) -X meter-go/internal/config.BuildTime=$(BUILD_TIME)" -o dist/meterNG
 
 buildFrontend:  ## Build frontend (Angular part)
-	cd web/app && npm install && ng build --prod
-
-embedFrontend: ## Embed frontend into backend
-	rice embed-go
+	cd web/app && ionic build --prod
 
 testBackend: ## Run backend tests
 	go test -v -cover $(shell go list ./...)

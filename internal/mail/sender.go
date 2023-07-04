@@ -3,16 +3,16 @@ package mail
 import (
 	"bytes"
 	"fmt"
-	rice "github.com/GeertJohan/go.rice"
+	"github.com/0xERR0R/meterNG/internal/config"
 	"github.com/jordan-wright/email"
 	"html/template"
-	"meter-go/internal/config"
+	"io/fs"
 	"net/smtp"
 )
 
 type Sender struct {
 	mailConfig config.MailConfig
-	templates  *rice.Box
+	templates  fs.FS
 }
 
 type Mailer interface {
@@ -25,7 +25,7 @@ type FileAttachment struct {
 	ContentType string
 }
 
-func NewSender(mailConfig config.MailConfig, templates *rice.Box) *Sender {
+func NewSender(mailConfig config.MailConfig, templates fs.FS) *Sender {
 	return &Sender{mailConfig: mailConfig, templates: templates}
 }
 
@@ -38,12 +38,12 @@ func (s *Sender) SendMail(subject string, tmpl string, data interface{}, file Fi
 	addr := fmt.Sprintf("%s:%d", s.mailConfig.SmtpHost, s.mailConfig.SmtpPort)
 	auth := smtp.PlainAuth("", s.mailConfig.SmtpUser, s.mailConfig.SmtpPassword, s.mailConfig.SmtpHost)
 
-	templateString, err := s.templates.String(tmpl)
+	templateContent, err := fs.ReadFile(s.templates, tmpl)
 	if err != nil {
 		return err
 	}
 
-	t, err := template.New(tmpl).Parse(templateString)
+	t, err := template.New(tmpl).Parse(string(templateContent[:]))
 	if err != nil {
 		return err
 	}

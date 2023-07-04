@@ -40,9 +40,10 @@ func FromCsv(line []string) Reading {
 }
 
 type Aggregation struct {
-	Value decimal.Decimal `json:"value"`
-	Month int             `json:"month"`
-	Year  int             `json:"year"`
+	Value            decimal.Decimal `json:"value"`
+	NormalizedPerDay decimal.Decimal `json:"normalizedPerDay"`
+	Month            int             `json:"month"`
+	Year             int             `json:"year"`
 }
 
 type Meter struct {

@@ -1,0 +1,6 @@
+<ion-item>
+  <ion-label>Years</ion-label>
+  <ion-select placeholder="Years" [multiple]="true" (ionChange)="onFilterChanged()" [(ngModel)]="selectedYears">
+    <ion-select-option *ngFor="let year of yearsFromReadings" value="{{ year }}">{{ year }}</ion-select-option>
+  </ion-select>
+</ion-item>
