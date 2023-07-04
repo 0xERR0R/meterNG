@@ -4,4 +4,3 @@ web/app/dist
 web/app/node_modules
 Dockerfile
 docker-compose.yml
-rice-box.go

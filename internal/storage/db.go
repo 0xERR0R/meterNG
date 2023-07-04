@@ -1,29 +1,20 @@
 package storage
 
 import (
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 	"log"
-	"meter-go/internal/model"
-	"time"
+
+	"github.com/0xERR0R/meterNG/internal/model"
+	"github.com/glebarez/sqlite"
+	"gorm.io/gorm"
 )
 
 // InitDB creates and migrates the database
 func InitDB() (*gorm.DB, error) {
-	retryCount := 5
-	var err error
-	for retryCount > 0 {
-		db, err := gorm.Open(sqlite.Open("/data/meterng.db"), &gorm.Config{})
-		if err != nil {
-			log.Printf("connection error, retry again (attempt %d)...", retryCount)
-			time.Sleep(3 * time.Second)
-			retryCount--
-			continue
-		} else {
-			db.AutoMigrate(&model.Reading{})
-			log.Printf("✓ connected to database")
-			return db, nil
-		}
+	db, err := gorm.Open(sqlite.Open("/data/meterng.db"), &gorm.Config{})
+	if err != nil {
+		return nil, err
 	}
-	return nil, err
+	db.AutoMigrate(&model.Reading{})
+	log.Printf("✓ connected to database")
+	return db, nil
 }

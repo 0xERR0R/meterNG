@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-segment color="primary" [scrollable]="true" [(ngModel)]="selectedMeter" value="{{selectedMeter}}"
+                 (ionChange)="onFilterChanged()">
+      <ion-segment-button *ngFor="let meter of meters | keyvalue" value="{{meter.key}}">
+        <ion-label>{{ meter.key}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment color="secondary" [scrollable]="true" [(ngModel)]="selectedChartType" value="{{selectedChartType}}"
+                 (ionChange)="onFilterChanged()">
+      <ion-segment-button *ngFor="let chartType of getPossibleChartTypes()" value="{{chartType}}">
+        <ion-label>{{chartType}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-toolbar>
+    <app-years-filter (yearsChangedEvent)="onYearsChanged($event)"></app-years-filter>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <canvas id="myChart" baseChart
+            [data]="chartData"
+            [options]="chartOptions"
+            [type]="chartType">
+    </canvas>
+</ion-content>

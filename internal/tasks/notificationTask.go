@@ -1,10 +1,10 @@
 package tasks
 
 import (
+	"github.com/0xERR0R/meterNG/internal/config"
+	"github.com/0xERR0R/meterNG/internal/mail"
+	"github.com/0xERR0R/meterNG/internal/storage"
 	"log"
-	"meter-go/internal/config"
-	"meter-go/internal/mail"
-	"meter-go/internal/storage"
 	"time"
 )
 

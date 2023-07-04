@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>record</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <form  *ngIf="recordFormGroup"[formGroup]="recordFormGroup" (ngSubmit)="submitForm()" novalidate>
+    <ion-item>
+      <ion-label>Date:</ion-label>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+    </ion-item>
+
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime formControlName="readingDate" id="datetime" presentation="date"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+    <ion-card>
+      <ion-card-header>
+        New Reading
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item *ngFor="let meter of meters" lines="full">
+          <ion-label position="stacked">{{ meter.name}}</ion-label>
+          <ion-input formControlName="{{'meter.' +  meter.name}}" type="number" required></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-row>
+      <ion-col>
+        <ion-button [disabled]="recordFormGroup.invalid" type="submit" color="danger" expand="block">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

@@ -1,19 +1,19 @@
 package main
 
 import (
+	"embed"
 	"fmt"
-	"log"
-	"meter-go/internal/config"
-	"meter-go/internal/handlers"
-	"meter-go/internal/mail"
-	"meter-go/internal/storage"
-	"meter-go/internal/tasks"
-	"net/http"
-
-	rice "github.com/GeertJohan/go.rice"
+	"github.com/0xERR0R/meterNG/internal/config"
+	"github.com/0xERR0R/meterNG/internal/handlers"
+	"github.com/0xERR0R/meterNG/internal/mail"
+	"github.com/0xERR0R/meterNG/internal/storage"
+	"github.com/0xERR0R/meterNG/internal/tasks"
 	"github.com/gorilla/mux"
 	"github.com/robfig/cron"
 	"gorm.io/gorm"
+	"io/fs"
+	"log"
+	"net/http"
 )
 
 func main() {
@@ -41,11 +41,12 @@ func initializeRouter(repo *storage.ReadingRepository, cfg config.Config) *mux.R
 	// configure routers
 	router := mux.NewRouter()
 	router.HandleFunc("/api/reading", readingHandler.GetReadings).Methods("GET")
+	router.HandleFunc("/api/readingsYears", readingHandler.GetReadingsYears).Methods("GET")
 	router.HandleFunc("/api/reading", readingHandler.CreateReadings).Methods("POST")
 	router.HandleFunc("/api/reading/{id:[0-9]+}", readingHandler.DeleteReading).Methods("DELETE")
 	router.HandleFunc("/api/lastReadingDate", readingHandler.GetLastReadingDate).Methods("GET")
-	router.HandleFunc("/api/aggregation/month/{meterId}", aggregationHandler.GetAggregationsMonth).Methods("GET")
-	router.HandleFunc("/api/aggregation/year/{meterId}", aggregationHandler.GetAggregationsYear).Methods("GET")
+	router.HandleFunc("/api/aggregation/month", aggregationHandler.GetAggregationsMonth).Methods("GET")
+	router.HandleFunc("/api/aggregation/year", aggregationHandler.GetAggregationsYear).Methods("GET")
 	router.HandleFunc("/api/meters", readingHandler.GetMeters).Methods("GET")
 	router.HandleFunc("/api/admin/export", adminHandler.ExportCsv).Methods("GET")
 	router.HandleFunc("/api/admin/import", adminHandler.ImportCsv).Methods("POST")
@@ -85,22 +86,26 @@ func printBanner() {
 	log.Println("                                             ")
 }
 
+//go:embed web/app/www
+var www embed.FS
+var contentFS, _ = fs.Sub(www, "web/app/www")
+
+//go:embed templates
+var templates embed.FS
+var templatesFS, _ = fs.Sub(templates, "templates")
+
 func embedWebApplicationFiles(router *mux.Router) {
-	box := rice.MustFindBox("web/app/dist/meterNG").HTTPBox()
-	if b, err := box.Bytes("index.html"); err != nil {
+	c, err := fs.ReadFile(contentFS, "index.html")
+	if err != nil {
 		log.Fatal("can't find index.html file")
-	} else {
-		router.PathPrefix("/").Handler(handlers.WrapWith404ContentHandler(http.FileServer(box), b))
 	}
+
+	router.PathPrefix("/").Handler(handlers.WrapWith404ContentHandler(http.FileServer(http.FS(contentFS)), c))
 }
 
 func registerCronTasks(configuration config.Config, repo *storage.ReadingRepository) {
 	taskManager := tasks.NewTaskManager()
-	templates, err := rice.FindBox("templates")
-	if err != nil {
-		log.Fatal(err)
-	}
-	sender := mail.NewSender(configuration.Email, templates)
+	sender := mail.NewSender(configuration.Email, templatesFS)
 	backupTaskCfg := configuration.Task.Backup
 	notificationTaskCfg := configuration.Task.Notification
 	label := configuration.Label

@@ -1,9 +1,9 @@
 package aggregation
 
 import (
+	"github.com/0xERR0R/meterNG/internal/model"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
-	"meter-go/internal/model"
 	"testing"
 	"time"
 )

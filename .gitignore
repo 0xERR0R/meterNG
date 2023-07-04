@@ -4,4 +4,4 @@
 dist/
 web/app/dist/
 web/app/node_modules
-rice-box.go
+node_modules

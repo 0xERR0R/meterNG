@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/csv"
+	"github.com/0xERR0R/meterNG/internal/model"
 	"gorm.io/gorm"
 	"log"
-	"meter-go/internal/model"
 	"time"
 )
 
@@ -15,7 +15,6 @@ func New(db *gorm.DB) *ReadingRepository {
 	return &ReadingRepository{db}
 }
 
-// UserStorage stores all users
 type ReadingRepository struct {
 	db *gorm.DB
 }
@@ -24,11 +23,36 @@ type ReadingsLastDateLoader interface {
 	GetReadingsLastDate(meterIds []string) (time.Time, error)
 }
 
-// GetByMeterId returns all readings for this meter
+func (s *ReadingRepository) GetReadingsYears() ([]string, error) {
+	result := make([]string, 0)
+	db := s.db.Table("readings").Select("distinct strftime('%Y', date)").Order("date DESC")
+	rows, err := db.Rows()
+	if err != nil {
+		return []string{}, err
+	}
+	for rows.Next() {
+		err := db.ScanRows(rows, &result)
+		if err != nil {
+			return []string{}, err
+		}
+	}
+	return result, err
+}
+
 func (s *ReadingRepository) GetReadingsByMeterId(meterIds []string) ([]model.Reading, error) {
 	var result []model.Reading
 
 	s.db.Order("date").Where("meter_Id in (?)", meterIds).Find(&result)
+	if s.db.Error != nil {
+		return nil, s.db.Error
+	}
+
+	return result, nil
+}
+func (s *ReadingRepository) GetReadingsByMeterIdAndYears(meterIds []string, years []string) ([]model.Reading, error) {
+	var result []model.Reading
+
+	s.db.Order("date DESC").Where("meter_Id in (?) and strftime('%Y', date) in (?)", meterIds, years).Find(&result)
 	if s.db.Error != nil {
 		return nil, s.db.Error
 	}

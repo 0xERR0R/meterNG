@@ -2,11 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
+	"github.com/0xERR0R/meterNG/internal/config"
+	"github.com/0xERR0R/meterNG/internal/model"
+	"github.com/0xERR0R/meterNG/internal/storage"
 	"github.com/gorilla/mux"
 	"log"
-	"meter-go/internal/config"
-	"meter-go/internal/model"
-	"meter-go/internal/storage"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -35,24 +35,38 @@ func createMeters(configString string) []model.Meter {
 	return result
 }
 
+func (h *ReadingHandler) GetReadingsYears(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	years, err := h.repo.GetReadingsYears()
+	if err != nil {
+		panic("failed to load years")
+	}
+	content, _ := json.Marshal(years)
+	w.Write(content)
+}
+
 func (h *ReadingHandler) GetReadings(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var readings []model.Reading
 	var err error
 
-	keys, ok := r.URL.Query()["meter"]
+	meterIDs := r.URL.Query()["meter"]
+	years := r.URL.Query()["years"]
 
-	if !ok || len(keys[0]) < 1 {
+	if len(meterIDs) < 1 {
 		meterIds := make([]string, len(h.meters))
 		for _, m := range h.meters {
 			meterIds = append(meterIds, m.Name)
 		}
-
-		readings, err = h.repo.GetReadingsByMeterId(meterIds)
-
-	} else {
-		readings, err = h.repo.GetReadingsByMeterId([]string{string(keys[0])})
+		meterIDs = meterIds
 	}
+
+	if len(years) > 0 {
+		readings, err = h.repo.GetReadingsByMeterIdAndYears(meterIDs, years)
+	} else {
+		readings, err = h.repo.GetReadingsByMeterId(meterIDs)
+	}
+
 	if err != nil {
 		panic("failed to load readings")
 	}

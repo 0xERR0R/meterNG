@@ -2,11 +2,15 @@ import { TestBed } from '@angular/core/testing';
 
 import { ChartService } from './chart.service';
 
-describe('GraphService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+describe('ChartService', () => {
+  let service: ChartService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(ChartService);
+  });
 
   it('should be created', () => {
-    const service: ChartService = TestBed.get(ChartService);
     expect(service).toBeTruthy();
   });
 });

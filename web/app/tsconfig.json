@@ -1,3 +1,4 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -7,22 +8,20 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "module": "es2020",
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "target": "ES2022",
+    "module": "es2020",
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
+    "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
-    "disableTypeScriptVersionCheck": true,
-    "enableIvy": false
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }
