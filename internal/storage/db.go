@@ -1,10 +1,11 @@
 package storage
 
 import (
-	"github.com/0xERR0R/meterNG/internal/model"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 	"log"
+
+	"github.com/0xERR0R/meterNG/internal/model"
+	"github.com/glebarez/sqlite"
+	"gorm.io/gorm"
 )
 
 // InitDB creates and migrates the database
