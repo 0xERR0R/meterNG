@@ -10,14 +10,15 @@ RUN apk add --no-cache \
     zip \
     ca-certificates
 RUN npm install -g @angular/cli
-RUN go get github.com/GeertJohan/go.rice && \
-    go get github.com/GeertJohan/go.rice/rice
+
 ENV GO111MODULE=on \
     CGO_ENABLED=1
 ADD . /src
 WORKDIR /src
 
 ARG opts
+RUN go get github.com/GeertJohan/go.rice 
+RUN go get github.com/GeertJohan/go.rice/rice
 RUN env ${opts} make all
 
 # final stage

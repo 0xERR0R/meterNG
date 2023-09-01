@@ -12,7 +12,7 @@ buildBackend: *.go ## Build backend (GO part)
 	go build -ldflags="-w -s -X meter-go/internal/config.GitRevision=$(GITCOMMIT) -X meter-go/internal/config.BuildTime=$(BUILD_TIME)" -o dist/meterNG
 
 buildFrontend:  ## Build frontend (Angular part)
-	cd web/app && npm install && ng build --prod
+	cd web/app && npm install --legacy-peer-deps && ng build --prod
 
 embedFrontend: ## Embed frontend into backend
 	rice embed-go
