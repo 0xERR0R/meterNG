@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import {LoadingController} from "@ionic/angular";
 import {from, mergeMap, Observable} from "rxjs";
-import {finalize, map, tap} from "rxjs/operators";
-import {flatMap} from "rxjs/internal/operators";
+import {finalize, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
