@@ -1,6 +1,6 @@
 module github.com/0xERR0R/meterNG
 
-go 1.19
+go 1.21
 
 require (
 	github.com/glebarez/sqlite v1.8.0
