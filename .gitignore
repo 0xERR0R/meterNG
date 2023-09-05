@@ -4,3 +4,4 @@
 dist/
 web/app/dist/
 web/app/node_modules
+node_modules

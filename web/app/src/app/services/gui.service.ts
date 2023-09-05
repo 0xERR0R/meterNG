@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {LoadingController} from "@ionic/angular";
-import {from, Observable} from "rxjs";
-import {finalize, tap} from "rxjs/operators";
+import {from, mergeMap, Observable} from "rxjs";
+import {finalize, map, tap} from "rxjs/operators";
 import {flatMap} from "rxjs/internal/operators";
 
 @Injectable({
@@ -19,17 +19,16 @@ export class GuiService {
       message: 'Please wait ...'
     }));
 
-    const wrapper = obs.pipe(
+    return obs.pipe(
       tap(loader2 => {
         loader = loader2;
         loader2.present();
       }),
-      flatMap(() => source),
+      mergeMap(() => source),
       finalize(() => {
         loader.dismiss();
       })
     );
 
-    return wrapper;
   }
 }
