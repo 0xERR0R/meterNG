@@ -34,7 +34,7 @@ export class ReadingsPage implements OnInit, ViewDidEnter {
   }
 
   ionViewDidEnter(): void {
-    // this.loadReadings()
+    this.loadReadings()
   }
 
   loadReadings() {

@@ -26,7 +26,7 @@
       <ion-card-content>
         <ion-item *ngFor="let meter of meters" lines="full">
           <ion-label position="stacked">{{ meter.name}}</ion-label>
-          <ion-input formControlName="{{'meter.' +  meter.name}}" type="number" required></ion-input>
+          <ion-input formControlName="{{'meter.' +  meter.name}}" type="number"></ion-input>
         </ion-item>
       </ion-card-content>
     </ion-card>

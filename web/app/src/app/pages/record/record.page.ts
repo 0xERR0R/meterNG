@@ -28,7 +28,7 @@ export class RecordPage implements OnInit {
       this.controlConfig= {
         readingDate: [new Date().toISOString(), [Validators.required]]
       };
-      this.meters.forEach(m => this.controlConfig["meter." + m.name] = ['', [Validators.required, Validators.min(0)]]);
+      this.meters.forEach(m => this.controlConfig["meter." + m.name] = ['', [Validators.min(0)]]);
 
       this.recordFormGroup = this.formBuilder.group(this.controlConfig);
     });
@@ -38,24 +38,30 @@ export class RecordPage implements OnInit {
     let date = this.recordFormGroup.value['readingDate'];
     let readings: Reading[] = []
     this.meters.forEach(meter => {
-      let reading: Reading = {date: new Date(date), meterId: meter.name, value: this.recordFormGroup.value['meter.'+meter.name], type: ReadingType.MEASURE};
-      readings.push(reading);
+      let readingValue = this.recordFormGroup.value['meter.'+meter.name]
+      if (readingValue > 0){
+        let reading: Reading = {date: new Date(date), meterId: meter.name, value: readingValue, type: ReadingType.MEASURE};
+        readings.push(reading);
+      }
 
     })
 
-    this.readingsService.storeReadings(readings) //
-      .subscribe(res => {
-        this.presentToast().then()
-        this.router.navigateByUrl('/readings',{
-          replaceUrl : true
-        }).then();
-        }
-      )
+    if (readings.length > 0) {
+      this.readingsService.storeReadings(readings) //
+        .subscribe(res => {
+          this.presentToast(readings.length).then()
+          this.router.navigateByUrl('/readings',{
+            replaceUrl : true
+          }).then();
+          }
+        );
+    }
+
   }
 
-  async presentToast() {
+  async presentToast(savedCnt :number) {
     const toast = await this.toastController.create({
-      message: 'Hello World!',
+      message: savedCnt + ' reading(s) saved',
       color: "success",
       duration: 5000,
       position: 'top',
