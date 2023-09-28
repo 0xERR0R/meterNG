@@ -1,8 +1,8 @@
 package tasks
 
 import (
-	"meter-go/internal/config"
-	"meter-go/internal/mail"
+	"github.com/0xERR0R/meterNG/internal/config"
+	"github.com/0xERR0R/meterNG/internal/mail"
 	"testing"
 	"time"
 

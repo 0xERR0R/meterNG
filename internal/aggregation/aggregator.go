@@ -2,7 +2,8 @@ package aggregation
 
 import (
 	"errors"
-	"meter-go/internal/model"
+	"github.com/0xERR0R/meterNG/internal/model"
+	"github.com/shopspring/decimal"
 	"sort"
 	"time"
 )
@@ -43,13 +44,17 @@ func aggregate(readings []model.Reading, fnStart dayOfPeriod, fnEnd dayOfPeriod,
 			startOfMonth := fnStart(date)
 			endOfMonth := fnEnd(date)
 
+			daysInMonth := endOfMonth.Day()
+
 			v1 := interpolator.GetValue(startOfMonth)
 			v2 := interpolator.GetValue(endOfMonth)
+			value := v2.Sub(v1)
 
 			aggregation := model.Aggregation{
-				Month: int(startOfMonth.Month()),
-				Year:  startOfMonth.Year(),
-				Value: v2.Sub(v1).Round(2),
+				Month:            int(startOfMonth.Month()),
+				Year:             startOfMonth.Year(),
+				Value:            value.Round(2),
+				NormalizedPerDay: value.Div(decimal.NewFromFloat(float64(daysInMonth))).Round(3),
 			}
 
 			result = append(result, aggregation)

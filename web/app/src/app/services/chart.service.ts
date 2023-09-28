@@ -1,154 +1,191 @@
 import {Injectable} from '@angular/core';
-import {ChartType} from '../model/chart-type.enum';
-import {Observable} from 'rxjs';
-import {ChartDataSets, TimeScale} from 'chart.js';
 import {MeterService} from './meter.service';
-import {Meter} from '../model/meter';
+import {Observable, of} from 'rxjs';
+import {ChartData, ChartDataset, TimeScale} from 'chart.js/auto';
+import {ReadingsService} from './readings.service';
 import {map} from 'rxjs/operators';
-import {TranslateService} from "@ngx-translate/core";
-import {ReadingType} from "../model/reading";
+import {Meter} from '../models/meter';
+import {ChartType} from "../models/chartType";
+import {ReadingType} from "../models/reading";
+import {ScaleType} from "chart.js";
 
 export interface ChartDefinition {
-    chartTitle: string;
-    showLegend?: boolean;
-    xLabel: string;
-    yLabel: string;
-    xAxisType?: string;
-    xAxisTime?: TimeScale;
-    chartLabels: string[];
-    chartData: ChartDataSets[];
-    chartType: string;
+  showLegend?: boolean;
+  // chartLabels: string[];
+  chartData: ChartData;
+  chartType: string;
+  scales: any;
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ChartService {
 
-    constructor(private meterService: MeterService, private translateService: TranslateService) {
+
+  constructor(private readingsService: ReadingsService) {
+  }
+
+  createChartData(meter: Meter, selectedYears: string[], meterChartType: ChartType): Observable<ChartDefinition> {
+    switch (meterChartType) {
+      case ChartType.total:
+        return this.createTotalChart(meter, selectedYears);
+      case ChartType.month:
+        return this.createMonthChart(meter, selectedYears);
+      case ChartType.monthAll:
+        return this.createMonthAllChart(meter, selectedYears);
+       case ChartType.year:
+         return this.createYearChart(meter, selectedYears);
     }
 
-    createChartDefinition(meter: Meter, meterChartType: ChartType): Observable<ChartDefinition> {
-        switch (meterChartType) {
-            case ChartType.total:
-                return this.createTotalChart(meter);
-            case ChartType.month:
-                return this.createMonthChart(meter);
-            case ChartType.monthAll:
-                return this.createMonthAllChart(meter);
-            case ChartType.year:
-                return this.createYearChart(meter);
+  }
+
+  createTotalChart(meter: Meter, selectedYears: string[]): Observable<ChartDefinition> {
+    return this.readingsService.getReadings([meter.name], selectedYears).pipe(map(result => {
+      const labels: any[] = [];
+      const data: number[] = [];
+      result.filter(r => r.type == ReadingType.MEASURE) //
+        .forEach(r => {
+          labels.push(r.date);
+          data.push(r.value);
+        });
+
+      return {
+        scales: {
+          x: {
+            type: 'time',
+            time: {
+              unit: 'month'
+            },
+          }
+        },
+        showLegend: false,
+        chartData: {
+          labels,
+          datasets: [
+            {
+              data
+            },
+          ]
+
+        },
+        chartType: 'line'
+      };
+    }))
+  }
+
+  createMonthChart(meter: Meter, selectedYears: string[]): Observable<ChartDefinition> {
+    return this.readingsService.getAggregationsMonth(meter.name, selectedYears).pipe(map(result => {
+
+      // map with year as key and array with 12 values (12 months)
+      const yearToAggregations = new Map<number, number[]>();
+      result.forEach(r => {
+        if (!yearToAggregations.has(r.year)) {
+          yearToAggregations.set(r.year, Array(12).fill(0));
         }
-    }
+        yearToAggregations.get(r.year)[r.month - 1] = r.value;
+      });
 
-    createTotalChart(meter: Meter): Observable<ChartDefinition> {
-        return this.meterService.getReadings(meter.name).pipe(map(result => {
-            const labels: any[] = [];
-            const data: number[] = [];
-            result.filter(r => r.type == ReadingType.MEASURE) //
-                .forEach(r => {
-                    labels.push(r.date);
-                    data.push(r.value);
-                });
-            let chartTittleString = '', xLabelString = '';
-            this.translateService.get("chartType.total").subscribe(val => chartTittleString = val);
-            this.translateService.get("readingDate").subscribe(val => xLabelString = val);
-            return {
-                chartTitle: chartTittleString + ': ' + meter.name,
-                xLabel: xLabelString,
-                yLabel: meter.unit,
-                xAxisType: 'time',
-                xAxisTime: {
-                    unit: 'month',
-                    tooltipFormat: 'LL'
-                },
-                chartLabels: labels,
-                chartData: [
-                    {data, label: meter.name, fill: false}
-                ],
-                chartType: 'line'
-            };
-        }));
-    }
+      let datasets: ChartDataset[] = [];
+      const keys = Array.from(yearToAggregations.keys());
+      keys.sort().forEach((key: number) => {
+        datasets.push({data: yearToAggregations.get(key), label: key + ' ' + meter.name + " ("  + meter.unit + ")"})
+      });
 
-    createMonthChart(meter: Meter): Observable<ChartDefinition> {
-        return this.meterService.getAggregationsMonth(meter.name).pipe(map(result => {
-            // map with year as key and array with 12 values (12 months)
-            const yearToAggregations = new Map<number, number[]>();
-            result.forEach(r => {
-                if (!yearToAggregations.has(r.year)) {
-                    yearToAggregations.set(r.year, Array(12).fill(0));
-                }
-                yearToAggregations.get(r.year)[r.month - 1] = r.value;
-            });
+      return {
+        showLegend: true,
+        scales: {
+          x: {
+            type: 'category',
+          }
+        },
+        chartData: {
+          labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+          datasets
+        },
+        chartType: 'bar'
+      };
+    }));
+  }
 
-            const chartData: ChartDataSets[] = [];
-            const keys = Array.from(yearToAggregations.keys());
-            keys.sort().forEach((key: number) => {
-                chartData.push({data: yearToAggregations.get(key), label: key + ' ' + meter.name});
+  createMonthAllChart(meter: Meter, selectedYears: string[]): Observable<ChartDefinition> {
+    return this.readingsService.getAggregationsMonth(meter.name, selectedYears).pipe(map(result => {
+      const labels: any[] = [];
+      const monthVals: number[] = [];
+      const perDayVals: number[] = [];
 
-            });
-            let chartTittleString = '', xLabelString = '';
-            this.translateService.get("chartType.month").subscribe(val => chartTittleString = val);
-            this.translateService.get("month").subscribe(val => xLabelString = val);
-            return {
-                chartTitle: chartTittleString + ': ' + meter.name,
-                xLabel: xLabelString,
-                yLabel: meter.unit,
-                showLegend: true,
-                chartLabels: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-                chartData,
-                chartType: 'bar'
-            };
-        }));
-    }
+      result.forEach(r => {
+        labels.push(r.month + '/' + r.year);
+        monthVals.push(r.value);
+        perDayVals.push(r.normalizedPerDay)
+      });
 
-    createMonthAllChart(meter: Meter): Observable<ChartDefinition> {
-        return this.meterService.getAggregationsMonth(meter.name).pipe(map(result => {
-            const labels: any[] = [];
-            const data: number[] = [];
-            result.forEach(r => {
-                labels.push(r.month + '/' + r.year);
-                data.push(r.value);
-            });
 
-            let chartTittleString = '', xLabelString = '';
-            this.translateService.get("chartType.monthAll").subscribe(val => chartTittleString = val);
-            this.translateService.get("monthYear").subscribe(val => xLabelString = val);
-            return {
-                chartTitle: chartTittleString + ': ' + meter.name,
-                xLabel: xLabelString,
-                yLabel: meter.unit,
-                chartLabels: labels,
-                chartData: [
-                    {data, label: meter.name}
-                ],
-                chartType: 'bar'
-            };
-        }));
-    }
+      return {
+        showLegend: true,
+        scales: {
+          x: {
+            type: 'category',
+          },
+          y1: {
+            type: 'linear',
+            position: 'left',
+          },
+          y2: {
+            type: 'linear',
+            position: 'right',
+          },
+        },
+        chartData: {
+          labels,
+          datasets: [
+            {
+              data: monthVals,
+              label: "per month (" + meter.unit + ")",
+              yAxisID: 'y1',
+            },
+            {
+              data: perDayVals,
+              label: "per day (" + meter.unit + ")",
+              yAxisID: 'y2',
+              type: 'line',
+            },
+          ]
 
-    createYearChart(meter: Meter): Observable<ChartDefinition> {
-        return this.meterService.getAggregationsYear(meter.name).pipe(map(result => {
-            const labels: any[] = [];
-            const data: number[] = [];
-            result.forEach(r => {
-                labels.push(r.year);
-                data.push(r.value);
-            });
-            let chartTittleString = '', xLabelString = '';
-            this.translateService.get("chartType.year").subscribe(val => chartTittleString = val);
-            this.translateService.get("year").subscribe(val => xLabelString = val);
-            return {
-                chartTitle: chartTittleString + ': ' + meter.name,
-                xLabel: xLabelString,
-                yLabel: meter.unit,
-                chartLabels: labels,
-                chartData: [
-                    {data, label: meter.name}
-                ],
-                chartType: 'bar'
-            };
-        }));
-    }
+        },
+        chartType: 'bar'
+      };
+    }));
+  }
+
+  private createYearChart(meter: Meter, selectedYears: string[]): Observable<ChartDefinition> {
+    return this.readingsService.getAggregationsYear(meter.name, selectedYears).pipe(map(result => {
+      const labels: any[] = [];
+      const data: number[] = [];
+      result
+        .forEach(r => {
+          labels.push(r.year);
+          data.push(r.value);
+        });
+
+      return {
+        scales: {
+          x: {
+            type: 'category',
+          },
+        },
+        showLegend: false,
+        chartData: {
+          labels,
+          datasets: [
+            {
+              data
+            },
+          ]
+
+        },
+        chartType: 'bar'
+      };
+    }))
+  }
 }

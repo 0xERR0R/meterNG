@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-item>
+      <ion-label>Meters</ion-label>
+      <ion-select placeholder="Meters" [multiple]="true" (ionChange)="loadReadings()" [(ngModel)]="searchMeters">
+        <ion-select-option *ngFor="let meter of meters | keyvalue"
+                           value="{{ meter.key }}">{{ meter.key }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+  <ion-toolbar>
+    <app-years-filter (yearsChangedEvent)="onYearsChanged($event)"></app-years-filter>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item-sliding *ngFor="let reading of readings">
+      <ion-item>
+        <ion-label>
+          {{ reading.meterId }}
+          <p>{{reading.date | date : 'dd.MM.yyyy'}}</p>
+        </ion-label>
+        <ion-label slot="end">{{ reading.value }} {{ meters.get(reading.meterId).unit }}</ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash" (click)="deleteReading(reading.id)"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger" routerLink="/record" rootDirection="root">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

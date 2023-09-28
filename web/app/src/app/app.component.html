@@ -1,9 +1,24 @@
-<ngx-loading-bar></ngx-loading-bar>
-<simple-notifications></simple-notifications>
-<app-nav></app-nav>
-<main role="main" class="container-fluid">
-  <div style="padding-top:  60px;">
-    <router-outlet></router-outlet>
-  </div>
+<ion-app>
 
-</main><!-- /.container -->
+  <ion-router-outlet></ion-router-outlet>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="chart">
+        <ion-icon name="bar-chart-outline"></ion-icon>
+        <ion-label>Chart</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="meters">
+        <ion-icon name="speedometer-outline"></ion-icon>
+        <ion-label>Meters</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="readings">
+        <ion-icon name="list-outline"></ion-icon>
+        <ion-label>Readings</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="admin">
+        <ion-icon name="settings-outline"></ion-icon>
+        <ion-label>Admin</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-app>

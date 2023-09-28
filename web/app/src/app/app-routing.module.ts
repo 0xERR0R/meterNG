@@ -1,34 +1,38 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ChartComponent} from './components/chart/chart.component';
-import {NewRecordComponent} from './components/new-record/new-record.component';
-import {ReadingsComponent} from "./components/readings/readings.component";
-import {AdminComponent} from "./components/admin/admin.component";
-import {DashboardComponent} from "./components/dashboard/dashboard.component";
-
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: 'chart/:meterId/:chartType', component: ChartComponent },
-  { path: 'chart/:meterId', component: ChartComponent },
-  { path: 'chart', component: ChartComponent },
-  { path: 'readings', component: ReadingsComponent },
-  { path: 'record', component: NewRecordComponent },
-  { path: 'admin', component: AdminComponent },
-    {path: 'dashboard', component: DashboardComponent},
-  {
+    {
     path: '',
-      redirectTo: '/dashboard',
+    redirectTo: 'readings',
     pathMatch: 'full'
   },
   {
-    path: '**',
-      redirectTo: '/dashboard',
-    pathMatch: 'full'
+    path: 'meters',
+    loadChildren: () => import('./pages/meters/meters.module').then( m => m.MetersPageModule)
+  },
+  {
+    path: 'readings',
+    loadChildren: () => import('./pages/readings/readings.module').then( m => m.ReadingsPageModule)
+  },
+  {
+    path: 'record',
+    loadChildren: () => import('./pages/record/record.module').then( m => m.RecordPageModule)
+  },
+  {
+    path: 'chart',
+    loadChildren: () => import('./pages/chart/chart.module').then( m => m.ChartPageModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

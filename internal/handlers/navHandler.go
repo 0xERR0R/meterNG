@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
-	"meter-go/internal/config"
+	"github.com/0xERR0R/meterNG/internal/config"
 	"net/http"
 )
 
