@@ -3,7 +3,7 @@ module github.com/0xERR0R/meterNG
 go 1.21
 
 require (
-	github.com/glebarez/sqlite v1.9.0
+	github.com/glebarez/sqlite v1.10.0
 	github.com/gorilla/mux v1.8.0
 	github.com/jordan-wright/email v0.0.0-20190819015918-041e0cec78b0
 	github.com/robfig/cron v1.2.0
