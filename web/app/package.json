@@ -20,7 +20,7 @@
     "@angular/platform-browser-dynamic": "^17.0.5",
     "@angular/router": "^17.0.5",
     "@capacitor/app": "5.0.6",
-    "@capacitor/core": "5.5.0",
+    "@capacitor/core": "5.5.1",
     "@capacitor/haptics": "5.0.6",
     "@capacitor/keyboard": "5.0.6",
     "@capacitor/status-bar": "5.0.6",
