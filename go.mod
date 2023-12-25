@@ -8,7 +8,7 @@ require (
 	github.com/jordan-wright/email v0.0.0-20190819015918-041e0cec78b0
 	github.com/robfig/cron v1.2.0
 	github.com/shopspring/decimal v1.3.1
-	github.com/spf13/viper v1.18.1
+	github.com/spf13/viper v1.18.2
 	github.com/stretchr/testify v1.8.4
 	gorm.io/gorm v1.25.5
 )
