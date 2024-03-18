@@ -3,14 +3,14 @@ module github.com/0xERR0R/meterNG
 go 1.21
 
 require (
-	github.com/glebarez/sqlite v1.10.0
+	github.com/glebarez/sqlite v1.11.0
 	github.com/gorilla/mux v1.8.1
 	github.com/jordan-wright/email v0.0.0-20190819015918-041e0cec78b0
 	github.com/robfig/cron v1.2.0
 	github.com/shopspring/decimal v1.3.1
 	github.com/spf13/viper v1.18.1
 	github.com/stretchr/testify v1.8.4
-	gorm.io/gorm v1.25.5
+	gorm.io/gorm v1.25.7
 )
 
 require (
